@@ -6,6 +6,11 @@ import time
 import random
 import plotly.express as px
 from st_copy_to_clipboard import st_copy_to_clipboard
+from dotenv import load_dotenv, dotenv_values
+import os
+
+
+load_dotenv()
 
 # Set the title of the app
 st.title("🔥 Hashtag Generator & Trend Visualizer")
@@ -22,7 +27,7 @@ platform = st.selectbox(
 
 # AI function to generate hashtags
 def ai(keywords, platform_name):
-    client = genai.Client(api_key="AIzaSyCOdyxSti9FVpxhyaiQihtW06h_ikoKqDU")
+    client = genai.Client(api_key = os.getenv("GOOGLE_API_KEY"))
     response = client.models.generate_content(
         model="gemini-2.0-flash",
         contents=f"with this keyword -- {keywords} -- make some good hashtags for {platform_name}. just tell 5 hashtags. no extra text."
